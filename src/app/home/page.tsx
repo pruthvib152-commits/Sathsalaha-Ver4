@@ -144,9 +144,11 @@ export default function Page() {
       </header>
 
       {/* HERO */}
-      <section {...section("top")} className="pt-16">
-        <HeroCarousel />
-      </section>
+      {(() => { const s = section("top"); return (
+        <section {...{ ...s, className: s.className + " pt-16" }}>
+          <HeroCarousel />
+        </section>
+      );})()}
 
       {/* ABOUT + PHILOSOPHY */}
       <section {...section("about")}>
