@@ -149,7 +149,7 @@ export default function Page() {
       </section>
 
       {/* ABOUT + PHILOSOPHY */}
-      <section id="about" {...section("about")}>
+      <section {...section("about")}>
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
           <h2 className="text-4xl font-bold text-primary">About Sathsalaha</h2>
           <div id="philosophy" className="mt-8 p-8 rounded-3xl border bg-white shadow-lg hover:shadow-xl transition-shadow">
@@ -162,7 +162,7 @@ export default function Page() {
       </section>
 
       {/* FOUR PILLARS */}
-      <section id="pillars" {...section("pillars")}>
+      <section {...section("pillars")}>
         <h2 className="text-4xl font-bold text-primary">The Four Pillars of Transformation</h2>
         <div className="mt-10 grid md:grid-cols-4 gap-6">
           {[
@@ -186,7 +186,7 @@ export default function Page() {
       </section>
 
       {/* BUSINESS INFLECTION POINTS */}
-      <section id="inflection" {...section("inflection")}>
+      <section {...section("inflection")}>
         <h2 className="text-4xl font-bold text-primary">Business Inflection Points</h2>
         <div className="mt-10 grid md:grid-cols-3 gap-6">
           {[
@@ -213,7 +213,7 @@ export default function Page() {
       </section>
 
       {/* RENEWAL PROCESS (Tabs) */}
-      <section id="renewal" {...section("renewal")}>
+      <section {...section("renewal")}>
         <h2 className="text-4xl font-bold text-primary">The Renewal Process</h2>
         <Tabs defaultValue="postures" className="mt-10">
           <TabsList className="grid grid-cols-3 w-full">
@@ -254,7 +254,7 @@ export default function Page() {
       </section>
 
       {/* ENGAGEMENT SCENARIOS */}
-      <section id="engagement" {...section("engagement")}>
+      <section {...section("engagement")}>
         <h2 className="text-4xl font-bold text-primary">Engagement Scenarios</h2>
         <p className="mt-3 text-slate-700 max-w-3xl">We support organizations across Strategic Ascent, Targeted Transformation, and Enterprise Evolution to ensure clarity, focus, and continuity.</p>
         <div className="mt-10 grid md:grid-cols-3 gap-6">
@@ -276,7 +276,7 @@ export default function Page() {
       </section>
 
       {/* 3A APPROACH — FULL ANIMATED */}
-      <section id="approach" {...section("approach")}>
+      <section {...section("approach")}>
         <h2 className="text-4xl font-bold text-primary">3A Approach — Assessment → Architecture → Application</h2>
         <motion.div
           initial="hidden"
