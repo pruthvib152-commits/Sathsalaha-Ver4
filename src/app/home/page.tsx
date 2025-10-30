@@ -4,6 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -115,75 +116,9 @@ export default function Page() {
   return (
     <div ref={topRef} className="min-h-screen scroll-smooth bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 font-inter">
       {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur bg-white/75 border-b shadow-sm">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-          <a href="#top" className="font-extrabold tracking-tight text-xl text-primary">Sathsalaha</a>
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <Link
-              href="/home"
-              aria-current={pathname === "/home" ? "page" : undefined}
-              className={`px-3 py-1 rounded-md transition-colors ${pathname === "/home" ? "bg-blue-50 text-blue-600 font-semibold" : "text-slate-700 hover:text-blue-600"}`}
-            >
-              Home
-            </Link>
-            <Link href="/about" className="text-slate-700 hover:text-blue-600">About Us</Link>
-            <Link href="/contact" className="text-slate-700 hover:text-blue-600">Contact Us</Link>
-          </nav>
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="menu"><Menu className="h-5 w-5"/></Button>
-              </SheetTrigger>
-              <SheetContent side="top" aria-labelledby="mobile-sheet-title" className="pt-4">
-                <div className="flex items-center justify-between px-1">
-                  <a href="#top" className="font-extrabold tracking-tight text-lg">Sathsalaha</a>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon" aria-label="Close menu"><X className="h-5 w-5"/></Button>
-                  </SheetClose>
-                </div>
-                <nav className="mt-4 flex flex-col items-stretch gap-2 text-lg font-medium">
-                  <button
-                    onClick={() => setMobileHomeOpen((v) => !v)}
-                    aria-expanded={mobileHomeOpen}
-                    className={`flex items-center justify-between px-1 py-3 text-left ${pathname === "/home" ? "text-blue-600 font-semibold" : "text-slate-700"}`}
-                  >
-                    <span>Home</span>
-                    <ChevronDown className={`h-5 w-5 transition-transform ${mobileHomeOpen ? "rotate-180" : "rotate-0"}`} />
-                  </button>
-                  {mobileHomeOpen && (
-                    <div className="pl-3 flex flex-col items-stretch gap-3 text-base font-normal">
-                      {[
-                        { href: { pathname: "/home", hash: "about" } as const, label: "About" },
-                        { href: { pathname: "/home", hash: "pillars" } as const, label: "Pillars" },
-                        { href: { pathname: "/home", hash: "inflection" } as const, label: "Inflection Points" },
-                        { href: { pathname: "/home", hash: "renewal" } as const, label: "Renewal" },
-                        { href: { pathname: "/home", hash: "engagement" } as const, label: "Engagements" },
-                        { href: { pathname: "/home", hash: "approach" } as const, label: "3A Approach" },
-                        { href: { pathname: "/home", hash: "contact" } as const, label: "Contact" },
-                      ].map((s) => (
-                        <SheetClose asChild key={`${s.href.pathname}#${s.href.hash}`}>
-                          <Link href={s.href} className="text-slate-700">{s.label}</Link>
-                        </SheetClose>
-                      ))}
-                    </div>
-                  )}
-                  <SheetClose asChild>
-                    <Link href="/about" className="px-1 py-3 text-slate-700">About Us</Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link href="/contact" className="px-1 py-3 text-slate-700">Contact Us</Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Button className="mt-2 w-full">Get Started</Button>
-                  </SheetClose>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
-      </header>
 
-      {/* HERO */}
+      <Header centerNavOnDesktop />
+
       {(() => { const s = section("top"); return (
         <section {...{ ...s, className: s.className + " pt-6 md:pt-8" }}>
           <HeroCarousel />
@@ -191,7 +126,8 @@ export default function Page() {
       );})()}
 
       {/* ABOUT + PHILOSOPHY */}
-      <section {...section("about")}>
+      <div className="bg-white">
+        <section {...section("about")}>
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
           <h2 className="text-4xl font-bold text-primary">About Sathsalaha</h2>
           <div id="philosophy" className="mt-6 p-6 md:p-8 rounded-3xl border bg-white shadow-lg hover:shadow-xl transition-shadow">
@@ -201,10 +137,12 @@ export default function Page() {
             <p className="mt-3 text-slate-700 leading-relaxed">This balance between automation and empathy not only strengthens relationships with customers and employees but also drives sustained profitability, investor confidence, and brand continuity. <strong>True enterprise renewal begins where operational intelligence meets human intent.</strong></p>
           </div>
         </motion.div>
-      </section>
+        </section>
+      </div>
 
       {/* FOUR PILLARS */}
-      <section {...section("pillars")}>
+      <div className="bg-slate-50">
+        <section {...section("pillars")}>
         <h2 className="text-4xl font-bold text-primary">The Four Pillars of Transformation</h2>
         <div className="mt-8 md:mt-6 grid md:grid-cols-4 gap-5 md:gap-4">
           {[
@@ -225,10 +163,12 @@ export default function Page() {
             );
           })}
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* BUSINESS INFLECTION POINTS */}
-      <section {...section("inflection")}>
+      <div className="bg-white">
+        <section {...section("inflection")}>
         <h2 className="text-4xl font-bold text-primary">Business Inflection Points</h2>
         <div className="mt-8 md:mt-6 grid md:grid-cols-3 gap-5 md:gap-4">
           {[
@@ -252,10 +192,12 @@ export default function Page() {
           <div className="flex items-center gap-3"><Gauge className="h-6 w-6 text-primary" /><h3 className="font-semibold text-lg text-slate-900 leading-tight">Growth Plateaus</h3></div>
           <p className="text-slate-700 mt-3 leading-relaxed">Recognize and address early to sustain evolution.</p>
         </Card>
-      </section>
+        </section>
+      </div>
 
       {/* RENEWAL PROCESS (Tabs) */}
-      <section {...section("renewal")}>
+      <div className="bg-slate-50">
+        <section {...section("renewal")}>
         <h2 className="text-4xl font-bold text-primary">The Renewal Process</h2>
         <Tabs defaultValue="postures" className="mt-6">
           <TabsList className="grid grid-cols-3 w-full">
@@ -293,10 +235,12 @@ export default function Page() {
             </Card>
           </TabsContent>
         </Tabs>
-      </section>
+        </section>
+      </div>
 
       {/* ENGAGEMENT SCENARIOS */}
-      <section {...section("engagement")}>
+      <div className="bg-white">
+        <section {...section("engagement")}>
         <h2 className="text-4xl font-bold text-primary">Engagement Scenarios</h2>
         <p className="mt-3 text-slate-700 max-w-3xl">We support organizations across Strategic Ascent, Targeted Transformation, and Enterprise Evolution to ensure clarity, focus, and continuity.</p>
         <div className="mt-8 md:mt-6 grid md:grid-cols-3 gap-5 md:gap-4">
@@ -315,10 +259,12 @@ export default function Page() {
             );
           })}
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* 3A APPROACH — FULL ANIMATED */}
-      <section {...section("approach")}>
+      <div className="bg-slate-50">
+        <section {...section("approach")}>
         <h2 className="text-4xl font-bold text-primary">3A Approach — Assessment → Architecture → Application</h2>
         <motion.div
           initial="hidden"
@@ -343,7 +289,8 @@ export default function Page() {
             );
           })}
         </motion.div>
-      </section>
+        </section>
+      </div>
 
       {/* Footer */}
       <footer id="contact" className="border-t bg-white mt-8">
