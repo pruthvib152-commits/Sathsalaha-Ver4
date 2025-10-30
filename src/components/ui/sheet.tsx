@@ -1,19 +1,19 @@
 "use client";
-import * as React from "react";
+import React, { createContext, useContext, useState, Children, cloneElement } from "react";
 import { cn } from "@/components/ui/cn";
 
 type CtxType = { open: boolean; setOpen: (v: boolean) => void };
-const SheetCtx = React.createContext<CtxType | null>(null);
+const SheetCtx = createContext<CtxType | null>(null);
 
 export function Sheet({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   return <SheetCtx.Provider value={{ open, setOpen }}>{children}</SheetCtx.Provider>;
 }
 
 export function SheetTrigger({ asChild, children }: { asChild?: boolean; children: React.ReactElement }) {
-  const ctx = React.useContext(SheetCtx)!;
-  const child = React.Children.only(children);
-  return React.cloneElement(child, {
+  const ctx = useContext(SheetCtx)!;
+  const child = Children.only(children);
+  return cloneElement(child, {
     onClick: (e: any) => {
       child.props.onClick?.(e);
       ctx.setOpen(true);
@@ -22,7 +22,7 @@ export function SheetTrigger({ asChild, children }: { asChild?: boolean; childre
 }
 
 export function SheetContent({ side = "right", className, children, ...props }: { side?: "left" | "right" | "top"; className?: string; children: React.ReactNode }) {
-  const ctx = React.useContext(SheetCtx)!;
+  const ctx = useContext(SheetCtx)!;
   if (!ctx.open) return null;
   let panelCls = "";
   if (side === "right") panelCls = "top-0 right-0 h-full w-full max-w-xs flex flex-col";
@@ -39,9 +39,9 @@ export function SheetContent({ side = "right", className, children, ...props }: 
 }
 
 export function SheetClose({ asChild, children }: { asChild?: boolean; children: React.ReactElement }) {
-  const ctx = React.useContext(SheetCtx)!;
-  const child = React.Children.only(children);
-  return React.cloneElement(child, {
+  const ctx = useContext(SheetCtx)!;
+  const child = Children.only(children);
+  return cloneElement(child, {
     onClick: (e: any) => {
       child.props.onClick?.(e);
       ctx.setOpen(false);

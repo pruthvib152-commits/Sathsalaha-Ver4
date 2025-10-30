@@ -153,15 +153,15 @@ export default function Page() {
                   {mobileHomeOpen && (
                     <div className="pl-3 flex flex-col items-stretch gap-3 text-base font-normal">
                       {[
-                        { href: "/home#about", label: "About" },
-                        { href: "/home#pillars", label: "Pillars" },
-                        { href: "/home#inflection", label: "Inflection Points" },
-                        { href: "/home#renewal", label: "Renewal" },
-                        { href: "/home#engagement", label: "Engagements" },
-                        { href: "/home#approach", label: "3A Approach" },
-      
+                        { href: { pathname: "/home", hash: "about" } as const, label: "About" },
+                        { href: { pathname: "/home", hash: "pillars" } as const, label: "Pillars" },
+                        { href: { pathname: "/home", hash: "inflection" } as const, label: "Inflection Points" },
+                        { href: { pathname: "/home", hash: "renewal" } as const, label: "Renewal" },
+                        { href: { pathname: "/home", hash: "engagement" } as const, label: "Engagements" },
+                        { href: { pathname: "/home", hash: "approach" } as const, label: "3A Approach" },
+                        { href: { pathname: "/home", hash: "contact" } as const, label: "Contact" },
                       ].map((s) => (
-                        <SheetClose asChild key={s.href}>
+                        <SheetClose asChild key={`${s.href.pathname}#${s.href.hash}`}>
                           <Link href={s.href} className="text-slate-700">{s.label}</Link>
                         </SheetClose>
                       ))}

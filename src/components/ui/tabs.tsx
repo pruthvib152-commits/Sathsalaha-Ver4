@@ -1,12 +1,12 @@
 "use client";
-import * as React from "react";
+import React, { createContext, useState, useContext } from "react";
 import { cn } from "@/components/ui/cn";
 
 type TabsCtx = { value: string; setValue: (v: string) => void };
-const Ctx = React.createContext<TabsCtx | null>(null);
+const Ctx = createContext<TabsCtx | null>(null);
 
 export function Tabs({ defaultValue, className, children }: { defaultValue: string; className?: string; children: React.ReactNode }) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] = useState(defaultValue);
   return <div className={cn(className)}><Ctx.Provider value={{ value, setValue }}>{children}</Ctx.Provider></div>;
 }
 
@@ -15,7 +15,7 @@ export function TabsList({ className, children }: { className?: string; children
 }
 
 export function TabsTrigger({ value, children }: { value: string; children: React.ReactNode }) {
-  const ctx = React.useContext(Ctx)!;
+  const ctx = useContext(Ctx)!;
   const active = ctx.value === value;
   return (
     <button
@@ -30,7 +30,7 @@ export function TabsTrigger({ value, children }: { value: string; children: Reac
 }
 
 export function TabsContent({ value, className, children }: { value: string; className?: string; children: React.ReactNode }) {
-  const ctx = React.useContext(Ctx)!;
+  const ctx = useContext(Ctx)!;
   if (ctx.value !== value) return null;
   return <div className={cn(className)}>{children}</div>;
 }
