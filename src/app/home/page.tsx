@@ -81,7 +81,7 @@ function HeroCarousel() {
               <p className="mt-3 text-slate-700 max-w-3xl">{slide.ip}</p>
               <p className="mt-1 text-slate-700 max-w-3xl">{slide.rr}</p>
               <div className="mt-4 flex items-center gap-3">
-                <a href="#contact"><Button>Speak to Sridhar <ChevronRight className="ml-2 h-4 w-4"/></Button></a>
+                <Link href="/contact"><Button>Speak to Sridhar <ChevronRight className="ml-2 h-4 w-4"/></Button></Link>
                 <a href="#approach" className="text-slate-700 hover:underline">3A Approach</a>
               </div>
             </motion.div>
@@ -305,7 +305,7 @@ export default function Page() {
             <h4 className="font-semibold text-xl text-primary">Get in Touch</h4>
             <p>Phone: <a href="tel:+919676764433" className="underline">+91 9676764433</a></p>
             <p>Email: <a href="mailto:sri@sathsalaha.com" className="underline">sri@sathsalaha.com</a></p>
-            <Button className="mt-4 shadow-md w-full sm:w-auto">Speak to Sridhar</Button>
+            <Link href="/contact"><Button className="mt-4 shadow-md w-full sm:w-auto">Speak to Sridhar</Button></Link>
           </div>
         </div>
         <div className="text-center text-xs text-slate-500 pb-6">© {new Date().getFullYear()} Sathsalaha Private Limited · All rights reserved.</div>

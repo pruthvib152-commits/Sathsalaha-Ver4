@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Rocket, Compass, Target, Layers, LineChart, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import Link from "next/link";
 
 export default function AboutPage() {
   const fadeUp = {
@@ -16,57 +17,7 @@ export default function AboutPage() {
       {/* NAVBAR */}
       <Header centerNavOnDesktop />
 
-      {/* OUR PHILOSOPHY */}
-      <section className="px-10 py-16 max-w-4xl mx-auto text-center">
-        <motion.div variants={fadeUp} initial="hidden" animate="show" className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Philosophy</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">
-            At Sathsalaha, we believe businesses evolve through structured reflection and purposeful scaling.
-            Growth challenges often stem from imbalances between vision, structure, and execution. Our approach
-            bridges this gap, enabling organizations to align leadership intent with operational coherence.
-          </p>
-          <p className="text-gray-600 leading-relaxed">
-            Every organization’s rhythm is unique — our mission is to help leaders find that rhythm by balancing
-            innovation with discipline, creativity with clarity, and ambition with alignment.
-          </p>
-        </motion.div>
-      </section>
 
-      {/* CORE PILLARS SECTION */}
-      <section className="max-w-6xl mx-auto px-10 grid md:grid-cols-3 gap-6 pb-16">
-        <motion.div variants={fadeUp} initial="hidden" animate="show" className="bg-white shadow-md rounded-xl p-6 border border-gray-100">
-          <div className="flex items-center gap-3 mb-3">
-            <Target className="text-black" size={26} />
-            <h3 className="text-lg font-semibold text-gray-800">Clarity of Purpose</h3>
-          </div>
-          <p className="text-gray-600">
-            Organizations thrive when every action is guided by a clear sense of purpose. We help define and reinforce
-            that clarity, ensuring that teams move in harmony with strategic intent.
-          </p>
-        </motion.div>
-
-        <motion.div variants={fadeUp} initial="hidden" animate="show" className="bg-white shadow-md rounded-xl p-6 border border-gray-100">
-          <div className="flex items-center gap-3 mb-3">
-            <Layers className="text-black" size={26} />
-            <h3 className="text-lg font-semibold text-gray-800">Structural Integrity</h3>
-          </div>
-          <p className="text-gray-600">
-            Sustainable growth demands a strong foundation. We help businesses design and implement structures
-            that scale effectively while maintaining agility and consistency.
-          </p>
-        </motion.div>
-
-        <motion.div variants={fadeUp} initial="hidden" animate="show" className="bg-white shadow-md rounded-xl p-6 border border-gray-100">
-          <div className="flex items-center gap-3 mb-3">
-            <LineChart className="text-black" size={26} />
-            <h3 className="text-lg font-semibold text-gray-800">Measured Progress</h3>
-          </div>
-          <p className="text-gray-600">
-            Scaling isn’t just about expansion — it’s about maintaining measurable progress through defined metrics,
-            feedback loops, and leadership accountability.
-          </p>
-        </motion.div>
-      </section>
 
       {/* BOARD SECTION */}
       <section className="bg-gray-100 py-20 px-10">
@@ -191,7 +142,7 @@ export default function AboutPage() {
             <h4 className="font-semibold text-xl text-primary">Get in Touch</h4>
             <p>Phone: <a href="tel:+919676764433" className="underline">+91 9676764433</a></p>
             <p>Email: <a href="mailto:sri@sathsalaha.com" className="underline">sri@sathsalaha.com</a></p>
-            <Button className="mt-4 shadow-md w-full sm:w-auto">Speak to Sridhar</Button>
+            <Link href="/contact"><Button className="mt-4 shadow-md w-full sm:w-auto">Speak to Sridhar</Button></Link>
           </div>
         </div>
         <div className="text-center text-xs text-slate-500 pb-6">© {new Date().getFullYear()} Sathsalaha Private Limited · All rights reserved.</div>

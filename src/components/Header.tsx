@@ -32,13 +32,6 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
         Home
       </Link>
       <Link
-        href="/strategy"
-        aria-current={pathname === "/strategy" ? "page" : undefined}
-        className={cn(linkBase, pathname === "/strategy" ? activeCls : inactiveCls)}
-      >
-        Strategy
-      </Link>
-      <Link
         href="/about"
         aria-current={pathname === "/about" ? "page" : undefined}
         className={cn(linkBase, pathname === "/about" ? activeCls : inactiveCls)}
@@ -143,13 +136,7 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
                   </div>
                 )}
                 <SheetClose asChild>
-                  <Link href="/strategy" className="px-1 py-3 text-slate-700">Strategy</Link>
-                </SheetClose>
-                <SheetClose asChild>
                   <Link href="/about" className="px-1 py-3 text-slate-700">About Us</Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link href="/contact" className="px-1 py-3 text-slate-700">Contact Us</Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/contact"><Button className="mt-2 w-full">Get Started</Button></Link>

@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import Link from "next/link";
 import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 
 export default function ContactPage() {
@@ -110,32 +111,23 @@ export default function ContactPage() {
         </form>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-black text-gray-400 text-sm py-10 px-10 grid md:grid-cols-3 gap-6 mt-auto">
-        <div>
-          <h3 className="text-white font-semibold mb-3">SATHSALAHA</h3>
-          <p className="text-xs leading-relaxed">
-            Helping executives transform scaling challenges into breakthrough moments using our proven 3A Approach.
-          </p>
+      {/* Footer (same as Home) */}
+      <footer id="contact" className="border-t bg-white mt-8">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-2 gap-8">
+          <div>
+            <h4 className="font-semibold text-xl text-primary">Connect with Sathsalaha</h4>
+            <p className="mt-4 text-slate-700 leading-relaxed">If your organization is approaching a turning point or seeking its next phase of growth, let's talk. <strong>Sridhar Chitturu</strong>, Management Consultant for Strategy & Execution and Founder of <strong>Sathsalaha Private Limited</strong>, would be glad to explore your enterprise story—whether it’s scaling to the next orbit, resolving performance challenges, or ensuring leadership continuity.</p>
+            <p className="mt-3 text-slate-700 leading-relaxed">Based in <strong>Hyderabad, India</strong>, Sathsalaha partners with clients across sectors and geographies to build alignment between vision, strategy, execution, and leadership—creating organizations that are <strong>Digitally Intelligent Inside</strong> and <strong>Deeply Human Outside</strong>.</p>
+            <p className="mt-3 text-slate-700 leading-relaxed">Reach out for a conversation—because clarity often begins with a single discussion.</p>
+          </div>
+          <div className="flex flex-col gap-3 text-slate-700">
+            <h4 className="font-semibold text-xl text-primary">Get in Touch</h4>
+            <p>Phone: <a href="tel:+919676764433" className="underline">+91 9676764433</a></p>
+            <p>Email: <a href="mailto:sri@sathsalaha.com" className="underline">sri@sathsalaha.com</a></p>
+            <Link href="/contact"><Button className="mt-4 shadow-md w-full sm:w-auto">Speak to Sridhar</Button></Link>
+          </div>
         </div>
-
-        <div>
-          <h4 className="text-white font-semibold mb-2">Quick Links</h4>
-          <ul className="space-y-1 text-xs">
-            <li><a href="/about" className="hover:text-white">About</a></li>
-            <li><a href="/strategy" className="hover:text-white">Strategy</a></li>
-            <li><a href="/contact" className="hover:text-white">Contact</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-white font-semibold mb-2">Get in Touch</h4>
-          <ul className="text-xs space-y-1">
-            <li><Mail size={14} className="inline mr-1" /> sridhar@sathsalaha.com</li>
-            <li><Phone size={14} className="inline mr-1" /> +91 9987964453</li>
-            <li><MapPin size={14} className="inline mr-1" /> Global Consulting Services</li>
-          </ul>
-        </div>
+        <div className="text-center text-xs text-slate-500 pb-6">© {new Date().getFullYear()} Sathsalaha Private Limited · All rights reserved.</div>
       </footer>
     </div>
   );
