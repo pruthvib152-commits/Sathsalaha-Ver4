@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -15,7 +15,8 @@ type HeaderProps = {
 
 export default function Header({ centered = false, centerNavOnDesktop = false }: HeaderProps) {
   const pathname = usePathname();
-  const [mobileHomeOpen, setMobileHomeOpen] = useState(true);
+  const router = useRouter();
+  const [mobileHomeOpen, setMobileHomeOpen] = useState(false);
 
   const linkBase = "px-3 py-1 rounded-md transition-colors";
   const activeCls = "bg-blue-50 text-blue-600 font-semibold";
@@ -31,18 +32,18 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
         Home
       </Link>
       <Link
+        href="/strategy"
+        aria-current={pathname === "/strategy" ? "page" : undefined}
+        className={cn(linkBase, pathname === "/strategy" ? activeCls : inactiveCls)}
+      >
+        Strategy
+      </Link>
+      <Link
         href="/about"
         aria-current={pathname === "/about" ? "page" : undefined}
         className={cn(linkBase, pathname === "/about" ? activeCls : inactiveCls)}
       >
         About Us
-      </Link>
-      <Link
-        href="/contact"
-        aria-current={pathname === "/contact" ? "page" : undefined}
-        className={cn(linkBase, pathname === "/contact" ? activeCls : inactiveCls)}
-      >
-        Contact Us
       </Link>
     </nav>
   );
@@ -58,12 +59,18 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
       >
         {centered ? (
           <div className="flex items-center gap-6">
-            <a href="#top" className="font-extrabold tracking-tight text-xl text-primary">Sathsalaha</a>
+            <a href="#top" aria-label="Sathsalaha" className="flex items-center gap-2">
+              <img src="/images/Sathsalaha.png" alt="Sathsalaha Logo" className="h-6 w-auto" />
+              <span className="font-extrabold tracking-tight text-xl text-black">SATHSALAHA</span>
+            </a>
             {NavLinks}
           </div>
         ) : (
           <>
-            <a href="#top" className="font-extrabold tracking-tight text-xl text-primary">Sathsalaha</a>
+            <a href="#top" aria-label="Sathsalaha" className="flex items-center gap-2">
+              <img src="/images/Sathsalaha.png" alt="Sathsalaha Logo" className="h-6 w-auto" />
+              <span className="font-extrabold tracking-tight text-xl text-black">SATHSALAHA</span>
+            </a>
             {/* Center nav absolutely on desktop when requested */}
             {centerNavOnDesktop ? (
               <div className="absolute left-1/2 -translate-x-1/2">{NavLinks}</div>
@@ -73,6 +80,10 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
           </>
         )}
 
+        {/* Right actions */}
+        <div className="hidden md:block ml-auto">
+          <Link href="/contact"><Button>Get Started</Button></Link>
+        </div>
         <div className="md:hidden ml-auto">
           <Sheet>
             <SheetTrigger asChild>
@@ -80,7 +91,10 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
             </SheetTrigger>
             <SheetContent side="top" aria-labelledby="mobile-sheet-title" className="pt-4">
               <div className="flex items-center justify-between px-1">
-                <a href="#top" className="font-extrabold tracking-tight text-lg">Sathsalaha</a>
+                <a href="#top" aria-label="Sathsalaha" className="flex items-center gap-2">
+                  <img src="/images/Sathsalaha.png" alt="Sathsalaha Logo" className="h-6 w-auto" />
+                  <span className="font-extrabold tracking-tight text-lg text-black">SATHSALAHA</span>
+                </a>
                 <SheetClose asChild>
                   <Button variant="ghost" size="icon" aria-label="Close menu"><X className="h-5 w-5"/></Button>
                 </SheetClose>
@@ -89,17 +103,28 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
                 <SheetTitle id="mobile-sheet-title" className="sr-only">Navigation Menu</SheetTitle>
               </SheetHeader>
               <nav className="mt-2 flex flex-col items-stretch gap-2 text-lg font-medium">
-                <button
-                  onClick={() => setMobileHomeOpen((v) => !v)}
-                  aria-expanded={mobileHomeOpen}
-                  className={cn(
-                    "flex items-center justify-between px-1 py-3 text-left",
-                    pathname === "/home" ? "text-blue-600 font-semibold" : "text-slate-700"
-                  )}
-                >
-                  <span>Home</span>
-                  <ChevronDown className={cn("h-5 w-5 transition-transform", mobileHomeOpen ? "rotate-180" : "rotate-0")} />
-                </button>
+                <div className="flex items-center justify-between px-1 py-3">
+                  <SheetClose asChild>
+                    <Link
+                      href="/home"
+                      className={cn(
+                        "block flex-1 pr-2",
+                        pathname === "/home" ? "text-blue-600 font-semibold" : "text-slate-700"
+                      )}
+                    >
+                      Home
+                    </Link>
+                  </SheetClose>
+                  <button
+                    type="button"
+                    aria-label={mobileHomeOpen ? "Collapse Home sections" : "Expand Home sections"}
+                    aria-expanded={mobileHomeOpen}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileHomeOpen((v) => !v); }}
+                    className="p-2 rounded-md text-slate-600 hover:bg-slate-100"
+                  >
+                    <ChevronDown className={cn("h-5 w-5 transition-transform", mobileHomeOpen ? "rotate-180" : "rotate-0")} />
+                  </button>
+                </div>
                 {mobileHomeOpen && (
                   <div className="pl-3 flex flex-col items-stretch gap-3 text-base font-normal">
                     {[
@@ -118,13 +143,16 @@ export default function Header({ centered = false, centerNavOnDesktop = false }:
                   </div>
                 )}
                 <SheetClose asChild>
+                  <Link href="/strategy" className="px-1 py-3 text-slate-700">Strategy</Link>
+                </SheetClose>
+                <SheetClose asChild>
                   <Link href="/about" className="px-1 py-3 text-slate-700">About Us</Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/contact" className="px-1 py-3 text-slate-700">Contact Us</Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Button className="mt-2 w-full">Get Started</Button>
+                  <Link href="/contact"><Button className="mt-2 w-full">Get Started</Button></Link>
                 </SheetClose>
               </nav>
             </SheetContent>
