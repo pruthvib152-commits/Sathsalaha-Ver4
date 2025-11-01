@@ -1,4 +1,5 @@
 'use client';
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -16,6 +17,39 @@ export default function ContactPage() {
     { title: "Quick Response", description: "We respond within 24 hours to every inquiry — your time matters." },
     { title: "Tailored Solutions", description: "Every business is unique, and our recommendations reflect that." },
   ];
+
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle"|"success"|"error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setStatus("idle");
+    setErrorMsg(null);
+    const form = e.currentTarget as HTMLFormElement;
+    const data = new FormData(form);
+    try {
+      const res = await fetch("https://formspree.io/f/mrbooazp", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      const json = await res.json().catch(() => ({} as any));
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+        setErrorMsg((json as any)?.errors?.[0]?.message || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -64,32 +98,33 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <form className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-100 grid gap-4">
+        <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-100 grid gap-4">
+          <input type="hidden" name="_subject" value="New contact from Sathsalaha website" />
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-700">Full Name*</label>
-              <input type="text" placeholder="Enter your full name" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
+              <input name="name" required type="text" placeholder="Enter your full name" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
             </div>
             <div>
               <label className="text-sm font-medium text-gray-700">Email Address*</label>
-              <input type="email" placeholder="Enter your email address" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
+              <input name="email" required type="email" placeholder="Enter your email address" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-700">Company Name</label>
-              <input type="text" placeholder="Enter your company name" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
+              <input name="company" type="text" placeholder="Enter your company name" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
             </div>
             <div>
               <label className="text-sm font-medium text-gray-700">Phone Number</label>
-              <input type="text" placeholder="Enter your phone number" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
+              <input name="phone" type="text" placeholder="Enter your phone number" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm" />
             </div>
           </div>
 
           <div>
             <label className="text-sm font-medium text-gray-700">Service of Interest</label>
-            <select className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm">
+            <select name="service" className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm">
               <option>Select a service</option>
               <option>Operational Excellence</option>
               <option>Leadership Advisory</option>
@@ -100,13 +135,21 @@ export default function ContactPage() {
 
           <div>
             <label className="text-sm font-medium text-gray-700">Message</label>
-            <textarea placeholder="Tell us about your business challenges and goals..." className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm h-28" />
+            <textarea name="message" placeholder="Tell us about your business challenges and goals..." className="mt-1 w-full border border-gray-200 rounded-md p-2 text-sm h-28" />
           </div>
 
-          <div className="flex justify-center mt-4">
-            <Button className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 text-sm">
-              Send Message
+          <div className="flex flex-col items-center mt-4">
+            <Button type="submit" disabled={submitting} className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 text-sm">
+              {submitting ? "Sending..." : "Send Message"}
             </Button>
+            {status === "success" && (
+              <p className="text-green-600 text-sm mt-3" role="status" aria-live="polite">
+                Thanks—your message has been sent. We’ll get back within 24 hours.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-red-600 text-sm mt-3" role="alert">{errorMsg}</p>
+            )}
           </div>
         </form>
       </section>
