@@ -170,15 +170,16 @@ export default function Page() {
       <div className="bg-white">
         <section {...section("inflection")}>
         <h2 className="text-4xl font-bold text-primary">Business Inflection Points</h2>
-        <div className="mt-8 md:mt-6 grid md:grid-cols-3 gap-5 md:gap-4">
+        <div className="mt-8 md:mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 auto-rows-fr items-stretch gap-5 md:gap-4">
           {[
             { icon: Activity, title: "Contextual (External)", text: "Market saturation, tech disruption, regulation, macro cycles." },
             { icon: Settings, title: "Organizational (Internal)", text: "Process inefficiency, leadership transitions, culture drift." },
             { icon: Landmark, title: "Strategic (Decisions)", text: "New markets, M&A, major directional shifts." },
+            { icon: Gauge, title: "Growth Plateaus", text: "Recognize and address early to sustain evolution." },
           ].map((item, i) => {
             const Icon = item.icon;
             return (
-              <Card key={i} className="border bg-white shadow-sm hover:shadow-md transition-shadow rounded-xl p-4">
+              <Card key={i} className="h-full border bg-white shadow-sm hover:shadow-md transition-shadow rounded-xl p-4 flex flex-col">
                 <div className="flex items-center gap-3">
                   <Icon className="h-6 w-6 text-primary" />
                   <h3 className="font-semibold text-lg text-slate-900 leading-tight">{item.title}</h3>
@@ -188,10 +189,6 @@ export default function Page() {
             );
           })}
         </div>
-        <Card className="mt-4 border bg-white shadow-sm rounded-xl p-4">
-          <div className="flex items-center gap-3"><Gauge className="h-6 w-6 text-primary" /><h3 className="font-semibold text-lg text-slate-900 leading-tight">Growth Plateaus</h3></div>
-          <p className="text-slate-700 mt-3 leading-relaxed">Recognize and address early to sustain evolution.</p>
-        </Card>
         </section>
       </div>
 
